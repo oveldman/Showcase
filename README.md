@@ -4,12 +4,6 @@ Welcome!
 
 ## Quick start Client
 
-Quick start options:
-
-- [Download from Creative Tim](https://www.creative-tim.com/product/black-dashboard-angular?ref=bda-readme).
-
-### Terminal Commands
-
 1. Install NodeJs from [NodeJs Official Page](https://nodejs.org/en).
 2. Open Terminal
 3. Go to your file project
