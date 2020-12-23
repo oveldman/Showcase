@@ -10,58 +10,57 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   {
     path: "/dashboard",
-    title: "Dashboard",
+    title: "Home",
     rtlTitle: "لوحة القيادة",
-    icon: "icon-chart-pie-36",
+    icon: "icon-planet",
     class: ""
   },
   {
     path: "/icons",
-    title: "Icons",
+    title: "Curriculum vitae",
     rtlTitle: "الرموز",
-    icon: "icon-atom",
+    icon: "icon-badge",
+    class: ""
+  },
+  {
+    path: "/user",
+    title: "Bugs Business",
+    rtlTitle: "ملف تعريفي للمستخدم",
+    icon: "icon-bulb-63",
     class: ""
   },
   {
     path: "/maps",
-    title: "Maps",
+    title: "Projects",
     rtlTitle: "خرائط",
-    icon: "icon-pin",
+    icon: "icon-components",
     class: "" },
   {
     path: "/notifications",
-    title: "Notifications",
+    title: "Blog",
     rtlTitle: "إخطارات",
-    icon: "icon-bell-55",
-    class: ""
-  },
-
-  {
-    path: "/user",
-    title: "User Profile",
-    rtlTitle: "ملف تعريفي للمستخدم",
-    icon: "icon-single-02",
-    class: ""
-  },
-  {
-    path: "/tables",
-    title: "Table List",
-    rtlTitle: "قائمة الجدول",
-    icon: "icon-puzzle-10",
+    icon: "icon-pencil",
     class: ""
   },
   {
     path: "/typography",
-    title: "Typography",
+    title: "Tryouts",
     rtlTitle: "طباعة",
-    icon: "icon-align-center",
+    icon: "icon-settings-gear-63",
+    class: ""
+  },
+  {
+    path: "/tables",
+    title: "Links",
+    rtlTitle: "قائمة الجدول",
+    icon: "icon-light-3",
     class: ""
   },
   {
     path: "/rtl",
-    title: "RTL Support",
+    title: "Contact",
     rtlTitle: "ار تي ال",
-    icon: "icon-world",
+    icon: "icon-satisfied",
     class: ""
   }
 ];
