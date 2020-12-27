@@ -2,8 +2,11 @@
 using DataLayer.Process.Interface;
 using DataLayer.Process;
 using DataLayer;
+using Console;
 
-string connection = "Server=localhost;Port=5432;Database=ShowCaseDB;Username=postgres;Password=mysecretpassword";
+Startup startup = Startup.Create();
+startup.Load();
+string connection = startup.Connection;
 
 System.Console.WriteLine("Start: insert resume insert!");
 
