@@ -13,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using DataLayer;
+using BusinessLayer.Manager;
+using DataLayer.Process.Interface;
+using DataLayer.Process;
 
 namespace Web
 {
@@ -41,6 +44,7 @@ namespace Web
                 .EnableDetailedErrors()
                 .LogTo(Console.WriteLine));
 
+            AddScope(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +67,12 @@ namespace Web
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void AddScope(IServiceCollection services) 
+        {
+            services.AddScoped<IResumeDB, ResumeDB>();
+            services.AddScoped<IResumeManager, ResumeManager>();
         }
     }
 }

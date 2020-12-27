@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{AAA9AB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client\Client.csproj", "{15B547DC-7F2F-4041-AFE6-AB939A26BA43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,18 @@ Global
 		{15B547DC-7F2F-4041-AFE6-AB939A26BA43}.Release|x64.Build.0 = Release|Any CPU
 		{15B547DC-7F2F-4041-AFE6-AB939A26BA43}.Release|x86.ActiveCfg = Release|Any CPU
 		{15B547DC-7F2F-4041-AFE6-AB939A26BA43}.Release|x86.Build.0 = Release|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Debug|x64.Build.0 = Debug|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Debug|x86.Build.0 = Debug|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Release|x64.ActiveCfg = Release|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Release|x64.Build.0 = Release|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Release|x86.ActiveCfg = Release|Any CPU
+		{FEA577A2-61C1-4CF8-84B8-4184445BBE8E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{984DA54F-3CFC-40A5-9438-0576A411B988} = {17E0E28E-12C0-4092-A6AA-3C7977E21495}

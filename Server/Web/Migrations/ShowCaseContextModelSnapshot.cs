@@ -27,6 +27,9 @@ namespace Web.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
