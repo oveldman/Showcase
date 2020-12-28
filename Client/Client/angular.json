@@ -33,7 +33,7 @@
               "src/assets/scss/black-dashboard.scss",
               "src/assets/css/nucleo-icons.css"
             ],
-            "scripts": [],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -65,7 +65,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "black-dashboard-angular:build"
+            "browserTarget": "black-dashboard-angular:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
