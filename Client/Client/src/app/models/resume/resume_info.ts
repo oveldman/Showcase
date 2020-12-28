@@ -1,3 +1,5 @@
 export class ResumeInfo {
-    ProfileName: string
+    LivingPlace: string;
+    Nationality: string;
+    ProfileName: string;
 }

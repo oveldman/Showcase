@@ -13,7 +13,9 @@ System.Console.WriteLine("Start: insert resume insert!");
 ShowCaseContext context = new ShowCaseContext(connection);
 IResumeDB resumeDB = new ResumeDB(context);
 resumeDB.AddInfoAsync(new ResumeInfo() {
-    Name = "Oscar Veldman"
+    Name = "Oscar Veldman",
+    LivingPlace = "Rotterdam",
+    Nationality = "Dutch"
 });
 
 System.Console.WriteLine("Finished: insert resume insert!");

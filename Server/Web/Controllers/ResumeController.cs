@@ -31,6 +31,8 @@ namespace Web.Controllers
             ResumeInfo resumeInfo = await _resumeManager.GetInfoAsync();
 
             return new() {
+                LivingPlace = resumeInfo.LivingPlace,
+                Nationality = resumeInfo.Nationality,
                 ProfileName = resumeInfo.Name
             };
         }

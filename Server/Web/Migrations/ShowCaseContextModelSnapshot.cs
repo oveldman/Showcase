@@ -30,7 +30,13 @@ namespace Web.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<string>("LivingPlace")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nationality")
                         .HasColumnType("text");
 
                     b.HasKey("ID");
