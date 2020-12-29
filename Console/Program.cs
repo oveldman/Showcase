@@ -3,14 +3,14 @@ using DataLayer.Process.Interface;
 using DataLayer.Process;
 using DataLayer;
 using Console;
+using Microsoft.EntityFrameworkCore;
 
 Startup startup = Startup.Create();
 startup.Load();
-string connection = startup.Connection;
 
 System.Console.WriteLine("Start: insert resume insert!");
 
-ShowCaseContext context = new ShowCaseContext(connection);
+ShowCaseContext context = startup.Context;
 IResumeDB resumeDB = new ResumeDB(context);
 resumeDB.AddInfoAsync(new ResumeInfo() {
     Name = "Oscar Veldman",

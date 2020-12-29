@@ -1,39 +1,24 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DataLayer.Models;
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace DataLayer
 {
-    public class ShowCaseContext : DbContext
+    public class ShowCaseContext : ApiAuthorizationDbContext<ShowCaseUser>
     {
-        private readonly string _connectionString;
-        private readonly bool _startUpAvailable;
 
-        public ShowCaseContext(string connectionString)
+        public ShowCaseContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
-            _connectionString = connectionString;
-        }
-
-        public ShowCaseContext(DbContextOptions<ShowCaseContext> options) : base(options)
-        {
-            _startUpAvailable = true;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (_startUpAvailable) 
-            {
-                base.OnConfiguring(optionsBuilder);
-            } 
-            else 
-            {
-                optionsBuilder.UseNpgsql(_connectionString);
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasPostgresExtension("uuid-ossp")
                    .Entity<ResumeInfo>()
                    .Property(ri => ri.ID)

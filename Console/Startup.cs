@@ -2,13 +2,17 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.EntityFrameworkCore;
+using DataLayer;
 
 namespace Console
 {
     public sealed class Startup {
         private const bool Development = true;
         private static Startup _startup;
-        public string Connection { get; private set; }
+        private string _connection;
+        public ShowCaseContext Context { get; private set; }
         private Startup() {}
         public static Startup Create() 
         {
@@ -33,7 +37,16 @@ namespace Console
                 .AddEnvironmentVariables();
 
             var config = builder.Build();
-            Connection = config["ConnectionStrings:DefaultConnection"];
+            _connection = config["ConnectionStrings:DefaultConnection"];
+
+            CreateShowCaseContext();
+        }
+
+        private void CreateShowCaseContext() {
+            var optionsBuilder = new DbContextOptionsBuilder<ShowCaseContext>();
+                optionsBuilder.UseNpgsql(_connection);
+
+            ShowCaseContext context = new ShowCaseContext(optionsBuilder.Options, new OperationalStoreOptionsMigrations());
         }
     }
 }
