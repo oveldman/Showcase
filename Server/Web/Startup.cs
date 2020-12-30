@@ -16,6 +16,8 @@ using DataLayer;
 using BusinessLayer.Manager;
 using DataLayer.Process.Interface;
 using DataLayer.Process;
+using DataLayer.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Web
 {
@@ -38,11 +40,21 @@ namespace Web
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web", Version = "v1" });
             });
 
-            services.AddEntityFrameworkNpgsql().AddDbContext<ShowCaseContext>(options => 
+            services.AddDbContext<ShowCaseContext>(options => 
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("Web"))
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors()
                 .LogTo(Console.WriteLine));
+
+            services.AddDefaultIdentity<ShowCaseUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ShowCaseContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ShowCaseUser, ShowCaseContext>()
+                .AddDeveloperSigningCredential();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
 
             AddScope(services);
         }
@@ -61,6 +73,8 @@ namespace Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
