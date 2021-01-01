@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using DataLayer.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Web.Managers.Interfaces;
 using Web.Models.Authentication;
@@ -12,21 +15,24 @@ namespace Web.Managers
     public class ShowCaseAuthenticationManager : IAuthenticationManager
     {
         private readonly string _issuer;
+        private readonly SignInManager<ShowCaseUser> _signInManager;
         private readonly SymmetricSecurityKey _securityKey;
 
-        public ShowCaseAuthenticationManager(string issuer, string key) {
+        public ShowCaseAuthenticationManager(string issuer, string key, SignInManager<ShowCaseUser> signInManager) {
             _issuer = issuer;
-            _securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));  
+            _securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            _signInManager = signInManager;
         }
 
-        public BearerViewModel Authenticate(string username, string password)
+        public async Task<BearerViewModel> AuthenticateAsync(string username, string password)
         {
             var bearerModel = new BearerViewModel {
                 Succes = false
             };
 
-            // TODO: Use the signin manager of Microsoft Owin
-            if (username == "test" && password == "abc@123")  
+            var result = await _signInManager.PasswordSignInAsync(username, password, true, true);
+
+            if (result.Succeeded)  
             {  
                 var signinCredentials = new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha256);  
 

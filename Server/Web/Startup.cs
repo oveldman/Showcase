@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Web.Managers.Interfaces;
 using Web.Managers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Web
 {
@@ -113,7 +114,8 @@ namespace Web
 
             services.AddScoped<IAuthenticationManager, ShowCaseAuthenticationManager>(serviceProvider => 
             {
-                return new ShowCaseAuthenticationManager(issuer, securityKey);
+                SignInManager<ShowCaseUser> signInManager = serviceProvider.GetService<SignInManager<ShowCaseUser>>();
+                return new ShowCaseAuthenticationManager(issuer, securityKey, signInManager);
             });
 
             AddScope(services);

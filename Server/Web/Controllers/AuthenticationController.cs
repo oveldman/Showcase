@@ -35,9 +35,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public BearerViewModel Login(LoginViewModel loginRequest) 
+        public async Task<BearerViewModel> LoginAsync(LoginViewModel loginRequest) 
         {
-            return _authenticationManager.Authenticate(loginRequest.Username, loginRequest.Password);
+            return await _authenticationManager.AuthenticateAsync(loginRequest.Username, loginRequest.Password);
         }
     }
 }

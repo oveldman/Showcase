@@ -1,10 +1,11 @@
 using System;
+using System.Threading.Tasks;
 using Web.Models.Authentication;
 
 namespace Web.Managers.Interfaces
 {
     public interface IAuthenticationManager
     {
-        BearerViewModel Authenticate(string username, string password);
+        Task<BearerViewModel> AuthenticateAsync(string username, string password);
     }
 }
