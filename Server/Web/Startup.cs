@@ -23,6 +23,9 @@ using System.Net;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Web.Managers.Interfaces;
+using Web.Managers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web
 {
@@ -81,10 +84,13 @@ namespace Web
                 .AddApiAuthorization<ShowCaseUser, ShowCaseContext>()
                 .AddDeveloperSigningCredential();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            string securityKey = Configuration.GetSection("Secrets:AuthenicationKey")?.Value;
+            string issuer = Configuration.GetSection("Settings:Authentication:IssuerUrl")?.Value;
+
+            services.AddAuthentication()
                 .AddIdentityServerJwt()
                 .AddJwtBearer(options =>  
-                {  
+                { 
                     options.TokenValidationParameters = new TokenValidationParameters  
                     {  
                         ValidateIssuer = true,  
@@ -92,11 +98,23 @@ namespace Web
                         ValidateLifetime = true,  
                         ValidateIssuerSigningKey = true,  
         
-                        ValidIssuer = "https://localhost:5001",  
-                        ValidAudience = "https://localhost:5001",  
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeyForSignInSecret@1234"))  
+                        ValidIssuer = issuer,  
+                        ValidAudience = issuer,  
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey))  
                     };  
-                });  
+                }); 
+
+            services.AddAuthorization(options => 
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
+            }); 
+
+            services.AddScoped<IAuthenticationManager, ShowCaseAuthenticationManager>(serviceProvider => 
+            {
+                return new ShowCaseAuthenticationManager(issuer, securityKey);
+            });
 
             AddScope(services);
         }
