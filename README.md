@@ -18,8 +18,10 @@ Welcome!
 
 1. Open Terminal
 2. Run in terminal: ```cd Server/Web```
-3. Then: ```dotnet run```
-4. Navigate to: [https://localhost:5001/](https://localhost:5001/)
+3. Only one time: ```dotnet dev-certs https --clean```
+4. Then only one time: ```dotnet dev-certs https --trust```
+5. And: ```dotnet run```
+6. Navigate to: [https://localhost:5001/](https://localhost:5001/)
 
 ### Docker
 

@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace Web.Models
+namespace Web.Models.Resume
 {
     public class ResumeViewModel {
         [JsonPropertyName("LivingPlace")]

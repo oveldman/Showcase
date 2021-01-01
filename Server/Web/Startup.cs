@@ -18,6 +18,11 @@ using DataLayer.Process.Interface;
 using DataLayer.Process;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Authentication;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Net;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Web
 {
@@ -38,6 +43,29 @@ namespace Web
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description =
+                        "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                    Array.Empty<string>()
+                    }
+                });
             });
 
             services.AddDbContext<ShowCaseContext>(options => 
@@ -53,8 +81,22 @@ namespace Web
                 .AddApiAuthorization<ShowCaseUser, ShowCaseContext>()
                 .AddDeveloperSigningCredential();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddIdentityServerJwt()
+                .AddJwtBearer(options =>  
+                {  
+                    options.TokenValidationParameters = new TokenValidationParameters  
+                    {  
+                        ValidateIssuer = true,  
+                        ValidateAudience = true,  
+                        ValidateLifetime = true,  
+                        ValidateIssuerSigningKey = true,  
+        
+                        ValidIssuer = "https://localhost:5001",  
+                        ValidAudience = "https://localhost:5001",  
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("KeyForSignInSecret@1234"))  
+                    };  
+                });  
 
             AddScope(services);
         }
@@ -81,12 +123,18 @@ namespace Web
             {
                 endpoints.MapControllers();
             });
+
+            SetSecurity(env.IsDevelopment());
         }
 
         private void AddScope(IServiceCollection services) 
         {
             services.AddScoped<IResumeDB, ResumeDB>();
             services.AddScoped<IResumeManager, ResumeManager>();
+        }
+
+        private void SetSecurity(bool isDevelopment) {
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
     }
 }

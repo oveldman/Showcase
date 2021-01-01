@@ -7,12 +7,12 @@ using DataLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Web.Models;
+using Web.Models.Resume;
 
 namespace Web.Controllers
 {
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     [Route("[controller]")]
     public class ResumeController : ControllerBase
     {
