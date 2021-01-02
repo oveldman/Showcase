@@ -9,15 +9,7 @@ Startup startup = Startup.Create();
 startup.Load();
 
 System.Console.WriteLine("Start: insert resume insert!");
-
-ShowCaseContext context = startup.Context;
-IResumeDB resumeDB = new ResumeDB(context);
-resumeDB.AddInfoAsync(new ResumeInfo() {
-    Name = "Oscar Veldman",
-    LivingPlace = "Rotterdam",
-    Nationality = "Dutch"
-});
-
+startup.Inserter.Insert();
 System.Console.WriteLine("Finished: insert resume insert!");
 
 

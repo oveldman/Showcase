@@ -1,8 +1,6 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using DataLayer;
 
@@ -12,7 +10,7 @@ namespace Console
         private const bool Development = true;
         private static Startup _startup;
         private string _connection;
-        public ShowCaseContext Context { get; private set; }
+        public Inserter Inserter { get; private set; }
         private Startup() {}
         public static Startup Create() 
         {
@@ -47,6 +45,7 @@ namespace Console
                 optionsBuilder.UseNpgsql(_connection);
 
             ShowCaseContext context = new ShowCaseContext(optionsBuilder.Options, new OperationalStoreOptionsMigrations());
+            Inserter = new(context);
         }
     }
 }
