@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Web.Managers.Interfaces;
@@ -41,9 +43,11 @@ namespace Web.Managers
                 var tokenOptions = new JwtSecurityToken(  
                     issuer: _issuer,  
                     audience: _issuer,  
-                    claims: new List<Claim>(),  
+                    claims: new List<Claim>() {
+                        new Claim(ClaimTypes.Name, username),
+                    },
                     expires: validUntil,  
-                    signingCredentials: signinCredentials  
+                    signingCredentials: signinCredentials
                 );  
   
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);  
@@ -63,6 +67,21 @@ namespace Web.Managers
             }  
 
             return bearerModel;
+        }
+
+        public string GetUsername(string bearerToken) {
+            bearerToken = bearerToken.Replace("Bearer ", "", StringComparison.OrdinalIgnoreCase);
+
+            var handler = new JwtSecurityTokenHandler();
+            var validations = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = _securityKey,
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+            var claims = handler.ValidateToken(bearerToken, validations, out var tokenSecure);
+            return claims.FindFirstValue(ClaimTypes.Name);
         }
     }
 }

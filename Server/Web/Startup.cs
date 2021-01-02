@@ -92,6 +92,7 @@ namespace Web
                 .AddIdentityServerJwt()
                 .AddJwtBearer(options =>  
                 { 
+                    options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters  
                     {  
                         ValidateIssuer = true,  
