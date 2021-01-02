@@ -8,7 +8,7 @@ import { ResumeService } from '../../services/resume/resume.service';
   styleUrls: ['./oscar.component.scss']
 })
 export class OscarComponent implements OnInit {
-  basicInfo: ResumeInfo;
+  basicInfo: ResumeInfo = new ResumeInfo();
 
   constructor(private resumeService: ResumeService) {}
 

@@ -1,0 +1,54 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-12">
+            <ng-container *ngIf="IsNotLoggedIn">
+                <div class=" card">
+                        <div class=" card-header">
+                            <h1 class=" title">Login</h1>
+                        </div>
+                    <div class=" card-body">
+                        <ng-container *ngIf="showError">
+                            <div class="alert alert-info">
+                                Username and/or password is wrong.
+                            </div>
+                        </ng-container>
+                        <form [formGroup]="form" (ngSubmit)="login(form.value)">
+                            <div class=" row">
+                                <div class=" col-lg-3">
+                                    <label for="username">
+                                        Username
+                                    </label>
+                                </div>
+                                <div class=" col-lg-3">
+                                    <input id="username" class="form-control" type="text" formControlName="username">
+                                </div>
+                            </div>
+                            <div class=" row">
+                                <div class=" col-lg-3">
+                                    <label for="password">
+                                        Password
+                                    </label>
+                                </div>
+                                <div class=" col-lg-3">
+                                    <input id="password" class="form-control" type="password" formControlName="password">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Login</button>   
+                        </form>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="IsLoggedIn">
+                <div class=" card">
+                    <div class=" card-header">
+                        <h1 class=" title">Logout</h1>
+                    </div>
+                    <div class=" card-body">
+                        <button class="btn btn-primary" (click)="logout()">Logout</button>  
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+

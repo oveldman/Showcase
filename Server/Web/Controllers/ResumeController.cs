@@ -13,7 +13,7 @@ using Web.Models.Resume;
 namespace Web.Controllers
 {
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class ResumeController : ControllerBase
     {
